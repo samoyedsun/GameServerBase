@@ -19,33 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F7AF0198-5EAF-4BF1-937C-4406A3BC78CC}</ProjectGuid>
+    <ProjectGuid>{D01E1E49-A30E-4185-920E-7D682B5981EC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>wlib</RootNamespace>
+    <RootNamespace>server</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -70,18 +70,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(W_INCLUDE)\boost\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(W_INCLUDE)\boost\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(W_INCLUDE)\boost\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(W_INCLUDE)\boost\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(W_INCLUDE)\boost\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(W_INCLUDE)\boost\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(W_INCLUDE)\boost\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(W_INCLUDE)\boost\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -91,11 +95,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Clear\Documents\Visual Studio 2015\Projects\GameServerBase\wlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -104,11 +110,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Clear\Documents\Visual Studio 2015\Projects\GameServerBase\wlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -119,13 +127,15 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Clear\Documents\Visual Studio 2015\Projects\GameServerBase\wlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,68 +146,24 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Clear\Documents\Visual Studio 2015\Projects\GameServerBase\wlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="wasync_log.h" />
-    <ClInclude Include="wconfig.h" />
-    <ClInclude Include="whttp_client.h" />
-    <ClInclude Include="whttp_request_helper.h" />
-    <ClInclude Include="whttp_session.h" />
-    <ClInclude Include="wint2str.h" />
-    <ClInclude Include="wlib_util.h" />
-    <ClInclude Include="wlog.h" />
-    <ClInclude Include="wlog_color.h" />
-    <ClInclude Include="wlog_define.h" />
-    <ClInclude Include="wmem_pool.h" />
-    <ClInclude Include="wmsg.h" />
-    <ClInclude Include="wnet_define.h" />
-    <ClInclude Include="wnet_func.h" />
-    <ClInclude Include="wnet_mgr.h" />
-    <ClInclude Include="wnet_msg.h" />
-    <ClInclude Include="wnet_msg_queue.h" />
-    <ClInclude Include="wnet_msg_reserve.h" />
-    <ClInclude Include="wnet_msg_statistic.h" />
-    <ClInclude Include="wnet_session.h" />
-    <ClInclude Include="wnet_type.h" />
-    <ClInclude Include="wnoncopyable.h" />
-    <ClInclude Include="wrandom.h" />
-    <ClInclude Include="wsingleton.h" />
-    <ClInclude Include="wtime_api.h" />
-    <ClInclude Include="wtime_const.h" />
-    <ClInclude Include="wtime_elapse.h" />
-    <ClInclude Include="wtime_interval.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="wasync_log.cpp" />
-    <ClCompile Include="wconfig.cpp" />
-    <ClCompile Include="whttp_client.cpp" />
-    <ClCompile Include="whttp_request_helper.cpp" />
-    <ClCompile Include="whttp_session.cpp" />
-    <ClCompile Include="wint2str.cpp" />
-    <ClCompile Include="wlib_util.cpp" />
-    <ClCompile Include="wlog.cpp" />
-    <ClCompile Include="wlog_color.cpp" />
-    <ClCompile Include="wmem_pool.cpp" />
-    <ClCompile Include="wmsg.cpp" />
-    <ClCompile Include="wnet_mgr.cpp" />
-    <ClCompile Include="wnet_msg.cpp" />
-    <ClCompile Include="wnet_msg_queue.cpp" />
-    <ClCompile Include="wnet_msg_statistic.cpp" />
-    <ClCompile Include="wnet_session.cpp" />
-    <ClCompile Include="wnet_type.cpp" />
-    <ClCompile Include="wrandom.cpp" />
-    <ClCompile Include="wtime_api.cpp" />
+    <ProjectReference Include="..\wlib\wlib.vcxproj">
+      <Project>{f7af0198-5eaf-4bf1-937c-4406a3bc78cc}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

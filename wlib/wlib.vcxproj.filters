@@ -17,4 +17,149 @@
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="wasync_log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="whttp_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="whttp_request_helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="whttp_session.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wint2str.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wlib_util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wlog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wlog_color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wlog_define.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wmem_pool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wmsg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnet_define.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnet_func.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnet_mgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnet_msg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnet_msg_queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnet_msg_reserve.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnet_msg_statistic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnet_session.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnet_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wnoncopyable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wrandom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wsingleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wtime_api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wtime_const.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wtime_elapse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wtime_interval.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="wasync_log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wconfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="whttp_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="whttp_request_helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="whttp_session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wint2str.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wlib_util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wlog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wlog_color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wmem_pool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wmsg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wnet_mgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wnet_msg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wnet_msg_queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wnet_msg_statistic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wnet_session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wnet_type.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wrandom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wtime_api.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
