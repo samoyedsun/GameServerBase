@@ -49,7 +49,10 @@ namespace wang {
 	
 	void wbuffer::skip(unsigned int len)
 	{
-		m_pos += len;
+		if (!m_error && m_pos + len <= m_buf_size)
+			m_pos += len;
+		else
+			set_error();
 	}
 
 }
