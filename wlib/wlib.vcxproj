@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="wasync_log.h" />
+    <ClInclude Include="wbuffer.h" />
     <ClInclude Include="wconfig.h" />
     <ClInclude Include="whttp_client.h" />
     <ClInclude Include="whttp_request_helper.h" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wasync_log.cpp" />
+    <ClCompile Include="wbuffer.cpp" />
     <ClCompile Include="wconfig.cpp" />
     <ClCompile Include="whttp_client.cpp" />
     <ClCompile Include="whttp_request_helper.cpp" />
