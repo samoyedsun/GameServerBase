@@ -1,5 +1,5 @@
 #include "wbuffer.h"
-#include <iostream>
+#include <cstring>
 
 namespace wang {
 

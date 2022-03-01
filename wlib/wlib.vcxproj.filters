@@ -105,6 +105,9 @@
     <ClInclude Include="wbuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="wcmd_param.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wasync_log.cpp">
@@ -165,6 +168,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wbuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wcmd_param.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
