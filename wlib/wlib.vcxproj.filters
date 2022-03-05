@@ -108,6 +108,12 @@
     <ClInclude Include="wcmd_param.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="wrc4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wcrypto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wasync_log.cpp">
@@ -171,6 +177,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wcmd_param.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wrc4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wcrypto.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

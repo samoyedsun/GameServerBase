@@ -153,6 +153,7 @@
     <ClInclude Include="wbuffer.h" />
     <ClInclude Include="wcmd_param.h" />
     <ClInclude Include="wconfig.h" />
+    <ClInclude Include="wcrypto.h" />
     <ClInclude Include="whttp_client.h" />
     <ClInclude Include="whttp_request_helper.h" />
     <ClInclude Include="whttp_session.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="wnet_type.h" />
     <ClInclude Include="wnoncopyable.h" />
     <ClInclude Include="wrandom.h" />
+    <ClInclude Include="wrc4.h" />
     <ClInclude Include="wsingleton.h" />
     <ClInclude Include="wtime_api.h" />
     <ClInclude Include="wtime_const.h" />
@@ -185,6 +187,7 @@
     <ClCompile Include="wbuffer.cpp" />
     <ClCompile Include="wcmd_param.cpp" />
     <ClCompile Include="wconfig.cpp" />
+    <ClCompile Include="wcrypto.cpp" />
     <ClCompile Include="whttp_client.cpp" />
     <ClCompile Include="whttp_request_helper.cpp" />
     <ClCompile Include="whttp_session.cpp" />
@@ -201,6 +204,7 @@
     <ClCompile Include="wnet_session.cpp" />
     <ClCompile Include="wnet_type.cpp" />
     <ClCompile Include="wrandom.cpp" />
+    <ClCompile Include="wrc4.cpp" />
     <ClCompile Include="wtime_api.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
