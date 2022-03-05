@@ -1,4 +1,4 @@
-#include "wint2str.h"
+#include "wdigit2str.h"
 #include <algorithm>
 #include <cstdio>
 
@@ -13,7 +13,7 @@ namespace wang
 
 	// Efficient Integer to String Conversions, by Matthew Wilson.
 	template<typename T>
-	int int2str_dec(char* buf, T value)
+	int digit2str_dec(char* buf, int buf_size, T value)
 	{
 		T i = value;
 		char* p = buf;
@@ -22,11 +22,15 @@ namespace wang
 		{
 			int lsd = static_cast<int>(i % 10);
 			i /= 10;
+			if (p >= p + buf_size)
+				return 0;
 			*p++ = s_dec_zero[lsd];
 		} while (i != 0);
 
 		if (value < 0)
 		{
+			if (p >= p + buf_size)
+				return 0;
 			*p++ = '-';
 		}
 		*p = '\0';
@@ -36,29 +40,37 @@ namespace wang
 	}
 
 	template<>
-	int int2str_dec<float>(char* buf, float value)
+	int digit2str_dec<float>(char* buf, int buf_size, float value)
 	{
-		return sprintf(buf, "%.2g", value);
+		int len = sprintf(buf, "%.2g", value);
+		if (len >= buf_size)
+			return 0;
+		*(buf + len) = '\0';
+		return len;
 	}
 
 	template<>
-	int int2str_dec<double>(char* buf, double value)
+	int digit2str_dec<double>(char* buf, int buf_size, double value)
 	{
-		return sprintf(buf, "%.2g", value);
+		int len = sprintf(buf, "%.2g", value);
+		if (len >= buf_size)
+			return 0;
+		*(buf + len) = '\0';
+		return len;
 	}
 
 	//Explicit Instantiation
 
-#define IMPL1(TYPE) template int int2str_dec<TYPE>(char*, TYPE);
+#define IMPL1(TYPE) template int digit2str_dec<TYPE>(char*, int, TYPE);
 
 #define IMPL2(TYPE) IMPL1(signed TYPE) IMPL1(unsigned TYPE)
 
-	IMPL1(char)
-	IMPL2(char)
-	IMPL2(short)
-	IMPL2(int)
-	IMPL2(long)
-	IMPL2(long long)
+		IMPL1(char)
+		IMPL2(char)
+		IMPL2(short)
+		IMPL2(int)
+		IMPL2(long)
+		IMPL2(long long)
 
 #undef IMPL1
 #undef IMPL2
@@ -97,11 +109,11 @@ namespace wang
 	}
 
 	IMPL1(char)
-	IMPL2(char)
-	IMPL2(short)
-	IMPL2(int)
-	IMPL2(long)
-	IMPL2(long long)
+		IMPL2(char)
+		IMPL2(short)
+		IMPL2(int)
+		IMPL2(long)
+		IMPL2(long long)
 
 #undef IMPL1
 #undef IMPL2

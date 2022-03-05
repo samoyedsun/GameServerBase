@@ -154,10 +154,10 @@
     <ClInclude Include="wcmd_param.h" />
     <ClInclude Include="wconfig.h" />
     <ClInclude Include="wcrypto.h" />
+    <ClInclude Include="wdigit2str.h" />
     <ClInclude Include="whttp_client.h" />
     <ClInclude Include="whttp_request_helper.h" />
     <ClInclude Include="whttp_session.h" />
-    <ClInclude Include="wint2str.h" />
     <ClInclude Include="wlib_util.h" />
     <ClInclude Include="wlog.h" />
     <ClInclude Include="wlog_color.h" />
@@ -188,10 +188,10 @@
     <ClCompile Include="wcmd_param.cpp" />
     <ClCompile Include="wconfig.cpp" />
     <ClCompile Include="wcrypto.cpp" />
+    <ClCompile Include="wdigit2str.cpp" />
     <ClCompile Include="whttp_client.cpp" />
     <ClCompile Include="whttp_request_helper.cpp" />
     <ClCompile Include="whttp_session.cpp" />
-    <ClCompile Include="wint2str.cpp" />
     <ClCompile Include="wlib_util.cpp" />
     <ClCompile Include="wlog.cpp" />
     <ClCompile Include="wlog_color.cpp" />

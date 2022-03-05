@@ -33,9 +33,6 @@
     <ClInclude Include="whttp_session.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="wint2str.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="wlib_util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,6 +111,9 @@
     <ClInclude Include="wcrypto.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="wdigit2str.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wasync_log.cpp">
@@ -129,9 +129,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="whttp_session.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wint2str.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wlib_util.cpp">
@@ -183,6 +180,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wcrypto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wdigit2str.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
