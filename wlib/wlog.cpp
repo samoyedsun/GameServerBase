@@ -1,7 +1,7 @@
 #include "wlog.h"
 #include "wasync_log.h"
 #include "wtime_api.h"
-#include "wint2str.h"
+#include "wdigit2str.h"
 #include <cstring>
 #include <stdarg.h>
 
@@ -34,12 +34,12 @@ namespace wang
 			//uint64 === 20 bit
 			if (dst_len + 32 <= wlog::EBuf_Size)
 			{
-				dst_len += int2str_dec(dst + dst_len, value);
+				dst_len += digit2str_dec(dst, dst_len, value);
 			}
 			else
 			{
 				char buf[32];
-				int len = int2str_dec(buf, value);
+				int len = digit2str_dec(buf, 32, value);
 				append_to(dst, dst_len, buf, len);
 			}
 		}
