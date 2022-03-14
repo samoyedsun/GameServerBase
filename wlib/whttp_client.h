@@ -1,5 +1,5 @@
-#ifndef _W_HTTP_CLIENT_H_
-#define _W_HTTP_CLIENT_H_
+#ifndef W_HTTP_CLIENT_H
+#define W_HTTP_CLIENT_H
 
 #include "wnet_type.h"
 #include "wnet_define.h"
@@ -11,31 +11,16 @@
 namespace wang {
 
 	class wmem_pool;
-	class wnet_msg_queue;
+	class whttp_msg_queue;
 	class whttp_session;
-
-	// http消息数据
-	struct whttp_message
-	{
-		uint32							client_id;			// 用户id
-		boost::asio::streambuf			request;			// 请求缓存数据
-		boost::asio::streambuf			response;			// 回复缓存数据
-		uint32							status_code;		// 状态码
-		std::string						error_msg;			// 错误消息
-		uint16							msg_id;				// 回调消息id
-
-		whttp_message() : client_id(0), status_code(0), msg_id(0) {}
-	};
 
 	/**
 	*	whttp_client 并发http请求通信底层
 	*/
 	class whttp_client
 	{
-		friend class whttp_session;
-
 	public:
-		typedef std::function<void(uint32 client_id, uint16 msg_id, const void* buf, uint32 size)> wmsg_handler;
+		typedef std::function<void(int code, const void* buf, uint32 size)> wmsg_handler;
 
 	private:
 		typedef std::mutex wlock_type;
@@ -49,7 +34,7 @@ namespace wang {
 		/**
 		* 启动客户端，初始化资源
 		*/
-		bool init(wmsg_handler msg_handler, uint32 max_session, uint32 send_buf_size, uint32 recv_buf_size);
+		bool init(uint32 max_session, uint32 send_buf_size, uint32 recv_buf_size);
 
 		void destroy();
 
@@ -70,7 +55,9 @@ namespace wang {
 		* @param time_out_sec	超时时间，单位s
 		* @return				true请求成功, false表示请求投递失败
 		*/
-		bool http_request(const std::string& host, const char* request_ptr, uint32 request_size, uint32 client_id, uint16 msg_id, uint32 time_out_sec = 10);
+		bool http_request(const std::string& ip, const std::string port
+			, const char* request_ptr, uint32 request_size
+			, wmsg_handler func, uint32 time_out_sec = 10);
 
 		uint32 get_avaliable();
 
@@ -79,7 +66,8 @@ namespace wang {
 		void garbage_collect();
 
 	private:
-		void on_response(uint32 client_id, uint16 msg_id, whttp_session* session_ptr);
+		void on_response(wmsg_handler func, whttp_session* session_ptr
+			, int code, const void* buf, uint32 size);
 
 	private:
 		// 工作线程
@@ -110,12 +98,10 @@ namespace wang {
 
 		uint32							m_max_session;			// 最大连接数
 
-		wmsg_handler					m_msg_handler;
-
 		wmem_pool*						m_pool_ptr;
-		wnet_msg_queue*					m_msgs;
+		whttp_msg_queue*					m_msgs;
 	};
 
 } // namespace wang
 
-#endif // _NNETWORK_whttp_client_H_
+#endif // W_HTTP_CLIENT_H

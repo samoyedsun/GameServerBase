@@ -71,19 +71,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(W_INCLUDE)\boost\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(W_INCLUDE)\boost\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(W_INCLUDE)\boost\lib\${Platform};$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(W_INCLUDE)\boost\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(W_INCLUDE)\boost\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(W_INCLUDE)\boost\lib\${Platform};$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(W_INCLUDE)\boost\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(W_INCLUDE)\boost\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(W_INCLUDE)\boost\lib\${Platform};$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(W_INCLUDE)\boost\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(W_INCLUDE)\boost\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(W_INCLUDE)\boost\lib\${Platform};$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,8 +156,8 @@
     <ClInclude Include="wcrypto.h" />
     <ClInclude Include="wdigit2str.h" />
     <ClInclude Include="whttp_client.h" />
+    <ClInclude Include="whttp_error_code.h" />
     <ClInclude Include="whttp_request_helper.h" />
-    <ClInclude Include="whttp_session.h" />
     <ClInclude Include="wlib_util.h" />
     <ClInclude Include="wlog.h" />
     <ClInclude Include="wlog_color.h" />
@@ -191,7 +191,6 @@
     <ClCompile Include="wdigit2str.cpp" />
     <ClCompile Include="whttp_client.cpp" />
     <ClCompile Include="whttp_request_helper.cpp" />
-    <ClCompile Include="whttp_session.cpp" />
     <ClCompile Include="wlib_util.cpp" />
     <ClCompile Include="wlog.cpp" />
     <ClCompile Include="wlog_color.cpp" />
