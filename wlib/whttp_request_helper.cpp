@@ -1,4 +1,5 @@
 #include "whttp_request_helper.h"
+#include "whttp_error_code.h"
 #include "wlog.h"
 #include <sstream>
 #include <iostream>
@@ -23,6 +24,21 @@ namespace wang {
 		{
 			server_address = address;
 			method_path = "/";
+		}
+	}
+
+	void http_host_parse(const std::string& host, std::string& ip, std::string& port)
+	{
+		std::string::size_type pos = host.find_first_of(':');
+		if (pos != std::string::npos)
+		{
+			ip = host.substr(0, pos);
+			port = host.substr(pos);
+		}
+		else
+		{
+			ip = host;
+			port = "80";
 		}
 	}
 
@@ -293,12 +309,10 @@ namespace wang {
 			{ 3, "%FF" }
 		};
 
-		whttp_para::whttp_para() : m_buf(NULL)
-			, m_buf_size(0)
-			, m_pos(0)
-			, m_error(false)
+		whttp_para::whttp_para() : wbuffer(NULL, 0)
+			, m_buf(NULL)
 		{
-
+			init(2048);
 		}
 
 		whttp_para::~whttp_para()
@@ -318,9 +332,9 @@ namespace wang {
 			}
 
 			memset(m_buf, 0, buf_size);
-			memset(m_temp_buf, 0, sizeof(m_temp_buf));
+			memset(m_my_buf, 0, sizeof(m_my_buf));
 
-			m_buf_size = buf_size;
+			set_buf(m_buf, buf_size);
 
 			return true;
 		}
@@ -333,32 +347,37 @@ namespace wang {
 				m_buf = NULL;
 			}
 
-			m_buf_size = 0;
-			m_pos = 0;
-			m_error = false;
+			reset();
 		}
 
-		void whttp_para::reset()
+		void whttp_para::write_encode(const void* p, uint32 len)
 		{
-			m_pos = 0;
-			m_error = false;
-		}
-
-		void whttp_para::write(const void* buf, uint32 len)
-		{
-			if (!m_error && m_pos + len <= m_buf_size)
+			if (has_error())
 			{
-				memcpy(m_buf + m_pos, buf, len);
-				m_pos += len;
 				return;
 			}
-			set_error();
-		}
 
-		void whttp_para::set_error()
-		{
-			m_error = true;
-			LOG_ERROR << "buf not enough, " << m_buf_size;
+			if (len == 0)
+			{
+				return;
+			}
+			if (avail() < len * 3 + 1)
+			{
+				set_error();
+				return;
+			}
+
+			const unsigned char* buf = (unsigned char *)p;
+			wencodeURIDefineNode* node_ptr = NULL;
+			for (uint32 i = 0; i < len; ++i)
+			{
+				node_ptr = &g_URIEncodeMap[buf[i]];
+				write((*node_ptr).ta, (*node_ptr).len);
+				if (has_error())
+				{
+					return;
+				}
+			}
 		}
 
 		whttp_para& whttp_para::operator<<(char value)
@@ -374,71 +393,71 @@ namespace wang {
 
 		whttp_para& whttp_para::operator<<(signed char value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%d", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%d", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
 		whttp_para& whttp_para::operator<<(unsigned char value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%u", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%u", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
 		whttp_para& whttp_para::operator<<(signed short value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%d", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%d", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
 		whttp_para& whttp_para::operator<<(unsigned short value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%u", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%u", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
 		whttp_para& whttp_para::operator<<(signed int value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%d", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%d", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
 		whttp_para& whttp_para::operator<<(unsigned int value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%u", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%u", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
 		whttp_para& whttp_para::operator<<(signed long value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%ld", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%ld", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
 		whttp_para& whttp_para::operator<<(unsigned long value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%lu", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%lu", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
 		whttp_para& whttp_para::operator<<(signed long long value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%lld", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%lld", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
 		whttp_para& whttp_para::operator<<(unsigned long long value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%llu", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%llu", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 
@@ -451,47 +470,14 @@ namespace wang {
 
 		whttp_para& whttp_para::operator<<(const std::string& value)
 		{
-			write_value(value.c_str(), static_cast<uint32>(value.length()));
+			write_encode(value.c_str(), static_cast<uint32>(value.length()));
 			return *this;
 		}
 
-		void whttp_para::write_value(const char* p, uint32 len)
+		whttp_request::whttp_request() : wbuffer(NULL, 0)
+			, m_buf(NULL)
 		{
-			if (has_error())
-			{
-				return;
-			}
-
-			if (len == 0)
-			{
-				return;
-			}
-			uint32 remain_len = m_buf_size - m_pos;
-			if (remain_len < len * 3 + 1)
-			{
-				set_error();
-				return;
-			}
-
-			const unsigned char* buf = (unsigned char *)p;
-
-			wencodeURIDefineNode* node_ptr = NULL;
-			for (uint32 i = 0; i < len; ++i)
-			{
-				node_ptr = &g_URIEncodeMap[buf[i]];
-
-				memcpy(m_buf + m_pos, (*node_ptr).ta, (*node_ptr).len);
-				m_pos += static_cast<uint32>((*node_ptr).len);
-			}
-		}
-
-
-		whttp_request::whttp_request() : m_buf(NULL)
-			, m_buf_size(0)
-			, m_pos(0)
-			, m_error(false)
-		{
-
+			init(4096);
 		}
 
 		whttp_request::~whttp_request()
@@ -501,26 +487,19 @@ namespace wang {
 
 		bool whttp_request::init(uint32 buf_size)
 		{
-			const int request_buf_size = buf_size + 1024;
-
 			if (m_buf) return true;
 
-			if (!m_para.init(buf_size))
-			{
-				return false;
-			}
-
-			m_buf = new char[request_buf_size];
+			m_buf = new char[buf_size];
 			if (!m_buf)
 			{
 				LOG_ERROR << "new m_buf failed!";
 				return false;
 			}
 
-			memset(m_buf, 0, request_buf_size);
-			memset(m_temp_buf, 0, sizeof(m_temp_buf));
+			memset(m_buf, 0, buf_size);
+			memset(m_my_buf, 0, sizeof(m_my_buf));
 
-			m_buf_size = request_buf_size;
+			set_buf(m_buf, buf_size);
 
 			return true;
 		}
@@ -533,28 +512,7 @@ namespace wang {
 				m_buf = NULL;
 			}
 
-			m_buf_size = 0;
-			m_pos = 0;
-			m_error = false;
-
-			m_para.destroy();
-		}
-
-		void whttp_request::reset()
-		{
-			m_pos = 0;
-			m_error = false;
-		}
-
-		void whttp_request::write(const void* buf, uint32 len)
-		{
-			if (!m_error && m_pos + len <= m_buf_size)
-			{
-				memcpy(m_buf + m_pos, buf, len);
-				m_pos += len;
-				return;
-			}
-			set_error();
+			reset();
 		}
 
 		whttp_request& whttp_request::operator<<(const char& value)
@@ -564,8 +522,8 @@ namespace wang {
 		}
 		whttp_request& whttp_request::operator<<(const unsigned int& value)
 		{
-			uint32 pos = sprintf(m_temp_buf, "%u", value);
-			write(m_temp_buf, pos);
+			uint32 pos = sprintf(m_my_buf, "%u", value);
+			write(m_my_buf, pos);
 			return *this;
 		}
 		whttp_request& whttp_request::operator<<(const char* c_str)
@@ -579,41 +537,32 @@ namespace wang {
 			return *this;
 		}
 
-		whttp_request& whttp_request::operator<<(const whttp_para& value)
+		whttp_request& whttp_request::operator<<(const wbuffer& value)
 		{
 			write(value.get_buf(), value.get_size());
 			return *this;
 		}
 
-		void whttp_request::make_get(const std::string& host, const std::string& path, const std::string& filename)
+		void whttp_request::make_get(const std::string& host, const std::string& method, const wbuffer& buf)
 		{
-			reset();
-			(*this) << "GET " << path << filename << '?' << m_para << " HTTP/1.0\r\n"
+			(*this) << "GET " << host << method << '?' << buf << " HTTP/1.0\r\n"
 				<< "Host: " << host << "\r\n"
 				<< "Accept: */*\r\n"
 				<< "Content-Type: application/x-www-form-urlencoded\r\n"
 				<< "Connection: close\r\n\r\n"
 				;
-
 		}
-		void whttp_request::make_post(const std::string& host, const std::string& path, const std::string& filename)
+
+		void whttp_request::make_post(const std::string& host, const std::string& method, const wbuffer& buf)
 		{
-			reset();
-			(*this) << "POST " << path << filename << " HTTP/1.0\r\n"
+			(*this) << "POST " << host << method << " HTTP/1.0\r\n"
 				<< "Host: " << host << "\r\n"
 				<< "Accept: */*\r\n"
 				<< "Content-Type: application/x-www-form-urlencoded\r\n"
-				<< "Content-Length: " << m_para.get_size() << "\r\n"
+				<< "Content-Length: " << buf.get_size() << "\r\n"
 				<< "Connection: close\r\n\r\n"
-				<< m_para
+				<< buf
 				;
-
-		}
-
-		void whttp_request::set_error()
-		{
-			m_error = true;
-			LOG_ERROR << "buf not enough, " << m_buf_size;
 		}
 
 		whttp_response::whttp_response() : m_buf(NULL)

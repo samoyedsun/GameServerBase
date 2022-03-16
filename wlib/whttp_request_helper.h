@@ -5,26 +5,18 @@
 #define W_HTTP_REQUEST_HELPER_H
 
 #include "wnet_type.h"
+#include "wbuffer.h"
 #include <string>
 
 namespace wang {
 
-	enum EHttpResponseCode
-	{
-		EHRCode_Succ = 200,
-		EHRCode_Timeout = 801,
-		EHRCode_Resolve = 802,
-		EHRCode_Connect = 803,
-		EHRCode_Write = 804,
-		EHRCode_Err = 805,
-		EHRCode_JsonPassErr = 806,
-	};
+	void http_address_parse(const std::string& url, std::string& host, std::string& method);
 
-	void http_address_parse(const std::string& address, std::string& server_address, std::string& method_path);
+	void http_host_parse(const std::string& host, std::string& ip, std::string& port);
 
 	namespace whttp_request_helper
 	{
-		class whttp_para
+		class whttp_para : public wbuffer
 		{
 		public:
 			whttp_para();
@@ -34,20 +26,7 @@ namespace wang {
 			bool init(uint32 buf_size);
 			void destroy();
 
-		public:
-			const char* get_buf() const { return m_buf; }
-
-			uint32 get_size() const { return m_pos; }
-
-			bool has_error() const { return m_error; }
-
-			bool no_error() const { return !has_error(); }
-
-			void reset();
-
-		private:
-			void write(const void* buf, uint32 len);
-			void set_error();
+			void write_encode(const void* p, uint32 len);
 
 		private:
 			whttp_para(const whttp_para& rht);
@@ -84,18 +63,11 @@ namespace wang {
 			whttp_para& operator<<(const std::string& value);
 
 		private:
-			void write_value(const char* p, uint32 len);
-
-		private:
-			char*			m_buf;
-			char			m_temp_buf[24];
-			uint32			m_buf_size;
-			uint32			m_pos;
-			bool			m_error;
+			char	m_my_buf[1024];
+			char*	m_buf;
 		};
 
-
-		class whttp_request
+		class whttp_request : public wbuffer
 		{
 		public:
 			whttp_request();
@@ -105,53 +77,29 @@ namespace wang {
 			bool init(uint32 buf_size);
 			void destroy();
 
-		public:
-			const char* get_buf() const { return m_buf; }
-
-			uint32 get_size() const { return m_pos; }
-
-			bool has_error() const { return m_error; }
-
-			bool no_error() const { return !has_error(); }
-
-			void reset();
-
-			whttp_para& get_para() { return m_para; }
-
-			void make_get(const std::string& host, const std::string& path, const std::string& filename);
-			void make_post(const std::string& host, const std::string& path, const std::string& filename);
+			void make_get(const std::string& host, const std::string& method, const wbuffer& buf);
+			void make_post(const std::string& host, const std::string& method, const wbuffer& buf);
 
 		private:
-			void write(const void* buf, uint32 len);
-
 			whttp_request& operator<<(const char& value);
 			whttp_request& operator<<(const unsigned int& value);
 			whttp_request& operator<<(const char* c_str);
 			whttp_request& operator<<(const std::string& value);
-
-			whttp_request& operator<<(const whttp_para& value);
-
-			void set_error();
+			whttp_request& operator<<(const wbuffer& value);
 
 		private:
 			whttp_request(const whttp_request&);
 			whttp_request& operator=(const whttp_request&);
 
 		private:
-			char*			m_buf;
-			char			m_temp_buf[24];
-			uint32			m_buf_size;
-			uint32			m_pos;
-			bool			m_error;
-			whttp_para		m_para;
+			char	m_my_buf[1024];
+			char*	m_buf;
 		};
-
 
 		class whttp_response
 		{
 		public:
 			whttp_response();
-
 
 		public:
 
