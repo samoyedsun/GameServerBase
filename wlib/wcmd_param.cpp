@@ -49,17 +49,4 @@ namespace wang {
 			for (int i = m_index; i < m_tokens.size(); ++i)
 				cmd += m_tokens[i] + " ";
 		}
-
-		wcmd_param::wcmd_param(const wcmd_param& other)
-		{
-			*this = other;
-		}
-		
-		wcmd_param& wcmd_param::operator=(const wcmd_param& other)
-		{
-			m_cmd = other.m_cmd;
-			m_tokens.assign(other.m_tokens.begin(), other.m_tokens.end());
-			m_index = other.m_index;
-			return *this;
-		}
 }
