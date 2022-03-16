@@ -24,4 +24,4 @@ namespace wang
 	};
 }
 
-#endif  // W_LOG_DEFINE_H_
+#endif  // W_LOG_DEFINE_H

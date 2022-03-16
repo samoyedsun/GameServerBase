@@ -101,4 +101,4 @@ namespace wang
 
 }
 
-#endif  // W_LOG_H_
+#endif  // W_LOG_H
