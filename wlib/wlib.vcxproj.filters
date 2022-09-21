@@ -36,9 +36,6 @@
     <ClInclude Include="wlog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="wlog_color.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="wlog_define.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,6 +111,18 @@
     <ClInclude Include="whttp_error_code.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="wmd5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wthread_pool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wstring_writer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wstr2digit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wasync_log.cpp">
@@ -132,9 +141,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wlog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wlog_color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wmem_pool.cpp">
@@ -180,6 +186,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wdigit2str.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wmd5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wthread_pool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wstring_writer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wstr2digit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

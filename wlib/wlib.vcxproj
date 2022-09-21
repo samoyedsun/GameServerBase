@@ -160,8 +160,8 @@
     <ClInclude Include="whttp_request_helper.h" />
     <ClInclude Include="wlib_util.h" />
     <ClInclude Include="wlog.h" />
-    <ClInclude Include="wlog_color.h" />
     <ClInclude Include="wlog_define.h" />
+    <ClInclude Include="wmd5.h" />
     <ClInclude Include="wmem_pool.h" />
     <ClInclude Include="wmsg.h" />
     <ClInclude Include="wnet_define.h" />
@@ -177,6 +177,9 @@
     <ClInclude Include="wrandom.h" />
     <ClInclude Include="wrc4.h" />
     <ClInclude Include="wsingleton.h" />
+    <ClInclude Include="wstr2digit.h" />
+    <ClInclude Include="wstring_writer.h" />
+    <ClInclude Include="wthread_pool.h" />
     <ClInclude Include="wtime_api.h" />
     <ClInclude Include="wtime_const.h" />
     <ClInclude Include="wtime_elapse.h" />
@@ -193,7 +196,7 @@
     <ClCompile Include="whttp_request_helper.cpp" />
     <ClCompile Include="wlib_util.cpp" />
     <ClCompile Include="wlog.cpp" />
-    <ClCompile Include="wlog_color.cpp" />
+    <ClCompile Include="wmd5.cpp" />
     <ClCompile Include="wmem_pool.cpp" />
     <ClCompile Include="wmsg.cpp" />
     <ClCompile Include="wnet_mgr.cpp" />
@@ -204,6 +207,9 @@
     <ClCompile Include="wnet_type.cpp" />
     <ClCompile Include="wrandom.cpp" />
     <ClCompile Include="wrc4.cpp" />
+    <ClCompile Include="wstr2digit.cpp" />
+    <ClCompile Include="wstring_writer.cpp" />
+    <ClCompile Include="wthread_pool.cpp" />
     <ClCompile Include="wtime_api.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
