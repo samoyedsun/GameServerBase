@@ -585,4 +585,38 @@ namespace wang
 			}
 		}
 	}
+
+	wasync_log::wasync_log(const wasync_log &async_log)
+	{
+		*this = async_log;
+	}
+
+	wasync_log& wasync_log::operator=(const wasync_log &async_log)
+	{
+		m_path = async_log.m_path;
+		m_name = async_log.m_name;
+		m_ext = async_log.m_ext;
+		m_fullname = async_log.m_fullname;
+
+		m_show_screen = async_log.m_show_screen;
+		m_level = async_log.m_level;
+		m_timestamp = async_log.m_timestamp;
+
+		//m_file = async_log.m_file;
+
+		//m_thread = async_log.m_thread;
+		//m_lock = async_log.m_lock;
+		//m_condition = async_log.m_condition;
+		
+		m_stop = async_log.m_stop;
+
+		m_cur_buf =	async_log.m_cur_buf;
+		m_avail_head = async_log.m_avail_head;
+		m_data_head = async_log.m_data_head;
+		m_data_tail = async_log.m_data_tail;
+
+		m_color_ptr = async_log.m_color_ptr;
+		return *this;
+	}
+
 } // namespace wang
