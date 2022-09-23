@@ -154,6 +154,8 @@
     <ClInclude Include="wcmd_param.h" />
     <ClInclude Include="wconfig.h" />
     <ClInclude Include="wcrypto.h" />
+    <ClInclude Include="wcycle_buffer.h" />
+    <ClInclude Include="wcycle_queue.h" />
     <ClInclude Include="wdigit2str.h" />
     <ClInclude Include="whttp_client.h" />
     <ClInclude Include="whttp_error_code.h" />
@@ -176,6 +178,7 @@
     <ClInclude Include="wnoncopyable.h" />
     <ClInclude Include="wrandom.h" />
     <ClInclude Include="wrc4.h" />
+    <ClInclude Include="wsafe_cycle_queue.h" />
     <ClInclude Include="wsingleton.h" />
     <ClInclude Include="wstr2digit.h" />
     <ClInclude Include="wstring_writer.h" />
@@ -191,6 +194,8 @@
     <ClCompile Include="wcmd_param.cpp" />
     <ClCompile Include="wconfig.cpp" />
     <ClCompile Include="wcrypto.cpp" />
+    <ClCompile Include="wcycle_buffer.cpp" />
+    <ClCompile Include="wcycle_queue.cpp" />
     <ClCompile Include="wdigit2str.cpp" />
     <ClCompile Include="whttp_client.cpp" />
     <ClCompile Include="whttp_request_helper.cpp" />
@@ -207,6 +212,7 @@
     <ClCompile Include="wnet_type.cpp" />
     <ClCompile Include="wrandom.cpp" />
     <ClCompile Include="wrc4.cpp" />
+    <ClCompile Include="wsafe_cycle_queue.cpp" />
     <ClCompile Include="wstr2digit.cpp" />
     <ClCompile Include="wstring_writer.cpp" />
     <ClCompile Include="wthread_pool.cpp" />

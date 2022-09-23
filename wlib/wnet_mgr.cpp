@@ -51,7 +51,9 @@ namespace wang
 	}
 
 	bool wnet_mgr::init(const std::string& name, uint32 client_session, uint32 server_session
-		, uint32 send_buf_size, uint32 recv_buf_size, uint32 pool_size)
+		, uint32 send_buf_size, uint32 recv_buf_size, uint32 pool_size
+		, wfailed_cb failed_cb, const std::string& auth_name
+		, const std::string& auth_pass, uint32 auth_delay)
 	{
 		m_name = name;
 		m_send_buf_size = send_buf_size;

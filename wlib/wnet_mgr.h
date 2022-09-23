@@ -28,6 +28,8 @@ namespace wang
 		typedef std::function<void(uint32 session_id)> wdisconnect_cb;
 		//消息回调1 隐藏网络消息结构
 		typedef std::function<void(uint32 session_id, wmsg& msg_ptr)> wmsg_cb;
+		//验证失败回调
+		typedef std::function<void()> wfailed_cb;
 
 	private:
 		typedef std::vector<wnet_session*> wsessions;
@@ -69,7 +71,9 @@ namespace wang
 
 	public:
 		bool init(const std::string& name, uint32 client_session, uint32 server_session
-			, uint32 send_buf_size, uint32 recv_buf_size, uint32 pool_size);
+			, uint32 send_buf_size, uint32 recv_buf_size, uint32 pool_size
+			, wfailed_cb failed_cb, const std::string& auth_name
+			, const std::string& auth_pass, uint32 auth_delay);
 
 		// 启动服务器
 		bool startup(uint32 thread_num, const std::string& ip, uint16 port);

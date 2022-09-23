@@ -123,6 +123,15 @@
     <ClInclude Include="wstr2digit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="wsafe_cycle_queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wcycle_buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wcycle_queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wasync_log.cpp">
@@ -198,6 +207,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wstr2digit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wsafe_cycle_queue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wcycle_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wcycle_queue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
