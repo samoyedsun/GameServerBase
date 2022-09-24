@@ -1,4 +1,4 @@
-#include "wdigit2str.h"
+#include "wstr2digit.h"
 #include <sstream>
 
 namespace wang
@@ -8,6 +8,13 @@ namespace wang
 	{
 		stringstream ss;
 		ss << buf;
+
 		ss >> value;
+	}
+
+	template<>
+	void str2digit_dec<int>(const char* buf, int& value)
+	{
+
 	}
 }

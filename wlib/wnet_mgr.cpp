@@ -294,6 +294,8 @@ namespace wang
 
 	bool wnet_mgr::send_msg(uint32 session_id, uint16 msg_id, const void* msg_ptr, uint32 size)
 	{
+		SYSTEM_LOG("发送消息，session_id:%d, msg_id:%d, size:%d", session_id, msg_id, size);
+
 		const uint32 index = get_session_index(session_id);
 		if (index >= m_sessions.size())
 		{
@@ -344,18 +346,22 @@ namespace wang
 			p->set_next(NULL);
 			if (p->get_msg_id() == EMIR_Connect)
 			{
+				SYSTEM_LOG("收到连接消息，session_id:%d", p->get_session_id());
 				wmsg_connect* q = (wmsg_connect*)p->get_buf();
 				m_connect_callback(p->get_session_id(), q->para, q->buf);
 				p->free_me();
 			}
 			else if (p->get_msg_id() == EMIR_Disconnect)
 			{
+				SYSTEM_LOG("收到断连消息，session_id:%d", p->get_session_id());
 				m_disconnect_callback(p->get_session_id());
 				_close_impl(p->get_session_id());
 				p->free_me();
 			}
 			else
 			{
+				SYSTEM_LOG("收到普通消息，session_id:%d, msg_id:%d, msg_size:%d",
+					p->get_session_id(), p->get_msg().get_id(), p->get_msg().get_size());
 				m_msg_callback(p->get_session_id(), p->get_msg());
 				p->sub_reference();
 			}
@@ -384,7 +390,7 @@ namespace wang
 	}
 	void wnet_mgr::show_info()
 	{
-		LOG_INFO << get_info();
+		SYSTEM_LOG("%s", get_info().c_str());
 	}
 
 	wnet_msg* wnet_mgr::create_msg(uint16 msg_id, uint32 msg_size)
@@ -497,7 +503,7 @@ namespace wang
 			_post_accept();
 		}
 
-		LOG_INFO << "listen on ip=" << ip << " port=" << port;
+		SYSTEM_LOG("listen on ip=%s, port=%d", ip.c_str(), port);
 		return true;
 	}
 

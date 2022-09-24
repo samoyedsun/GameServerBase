@@ -695,6 +695,7 @@ namespace wang {
 			ERROR_EX_LOG("memory alloc failed");
 			return;
 		}
+
 		p->set_handler(func);
 		p->set_code(code);
 		p->fill(buf, size);
@@ -715,7 +716,31 @@ namespace wang {
 
 		while (p)
 		{
-			p->get_handler()(p->get_code(), p->get_buf(), p->get_size());
+			const char *buf = p->get_buf();
+			int size = p->get_size() - 1;
+			int b_idx = 0;
+			int e_idx = 0;
+			for (int i = 0; i <= size; ++i)
+			{
+				if (buf[i] == '{')
+				{
+					b_idx = i;
+				}
+				if (buf[size - i] == '}')
+				{
+					e_idx = size - i;
+				}
+			}
+			if (b_idx > 0 && e_idx > 0)
+			{
+				size = e_idx - b_idx + 1;
+				p->get_handler()(p->get_code(), buf + b_idx, size);
+			}
+			else
+			{
+				p->get_handler()(p->get_code(), p->get_buf(), p->get_size());
+			}
+
 			whttp_msg *tmp_msg = p;
 			p = p->get_next();
 			tmp_msg->free_me();

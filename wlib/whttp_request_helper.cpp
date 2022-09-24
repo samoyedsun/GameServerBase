@@ -545,7 +545,7 @@ namespace wang {
 
 		void whttp_request::make_get(const std::string& host, const std::string& method, const wbuffer& buf)
 		{
-			(*this) << "GET " << host << method << '?' << buf << " HTTP/1.0\r\n"
+			(*this) << "GET " << method << '?' << buf << " HTTP/1.0\r\n"
 				<< "Host: " << host << "\r\n"
 				<< "Accept: */*\r\n"
 				<< "Content-Type: application/x-www-form-urlencoded\r\n"
@@ -555,7 +555,7 @@ namespace wang {
 
 		void whttp_request::make_post(const std::string& host, const std::string& method, const wbuffer& buf)
 		{
-			(*this) << "POST " << host << method << " HTTP/1.0\r\n"
+			(*this) << "POST " << method << " HTTP/1.0\r\n"
 				<< "Host: " << host << "\r\n"
 				<< "Accept: */*\r\n"
 				<< "Content-Type: application/x-www-form-urlencoded\r\n"
