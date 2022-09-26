@@ -54,19 +54,7 @@
     <ClInclude Include="wnet_mgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="wnet_msg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="wnet_msg_queue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="wnet_msg_reserve.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="wnet_msg_statistic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="wnet_session.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="wnet_type.h">
@@ -161,16 +149,7 @@
     <ClCompile Include="wnet_mgr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="wnet_msg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wnet_msg_queue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="wnet_msg_statistic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wnet_session.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wnet_type.cpp">
