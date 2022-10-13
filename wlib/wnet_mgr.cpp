@@ -929,7 +929,6 @@ namespace wang
 		{
 			std::lock_guard<std::mutex> guard(m_mutex);
 
-			// 加入队列
 			if (m_tail_ptr)
 			{
 				m_tail_ptr->set_next(msg_ptr);
@@ -943,18 +942,18 @@ namespace wang
 
 		wnet_msg* dequeue()
 		{
-			if (!m_head_ptr)
+			std::lock_guard<std::mutex> guard(m_mutex);
+
+			wnet_msg *ptr = m_head_ptr;
+			if (ptr)
 			{
-				return NULL;
+				m_head_ptr = ptr->get_next();
+				if (m_head_ptr == nullptr)
+				{
+					m_tail_ptr = m_head_ptr;
+				}
 			}
-			else
-			{
-				std::lock_guard<std::mutex> guard(m_mutex);
-				wnet_msg* msg_ptr = m_head_ptr;
-				m_head_ptr = NULL;
-				m_tail_ptr = NULL;
-				return msg_ptr;
-			}
+			return ptr;
 		}
 
 		void clear()
@@ -1202,7 +1201,7 @@ namespace wang
 			while (p)
 			{
 				tmp = p;
-				p = p->get_next();
+				p = m_msgs->dequeue();
 				m_pool_ptr->free(tmp);
 			}
 
@@ -1312,7 +1311,7 @@ namespace wang
 		while (msg_ptr)
 		{
 			wnet_msg* p = msg_ptr;
-			msg_ptr = msg_ptr->get_next();
+			msg_ptr = m_msgs->dequeue();
 			p->set_next(NULL);
 			if (p->get_msg_id() == EMIR_Connect)
 			{

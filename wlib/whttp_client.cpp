@@ -483,18 +483,18 @@ namespace wang {
 		}
 		whttp_msg* dequeue()
 		{
-			if (!m_head_ptr)
+			std::lock_guard<std::mutex> guard(m_mutex);
+
+			whttp_msg *ptr = m_head_ptr;
+			if (ptr)
 			{
-				return NULL;
+				m_head_ptr = ptr->get_next();
+				if (m_head_ptr == nullptr)
+				{
+					m_tail_ptr = m_head_ptr;
+				}
 			}
-			else
-			{
-				std::lock_guard<std::mutex> guard(m_mutex);
-				whttp_msg* msg_ptr = m_head_ptr;
-				m_head_ptr = NULL;
-				m_tail_ptr = NULL;
-				return msg_ptr;
-			}
+			return ptr;
 		}
 
 		void clear()
@@ -601,7 +601,7 @@ namespace wang {
 			while (p)
 			{
 				tmp = p;
-				p = p->get_next();
+				p = m_msgs->dequeue();
 				m_pool_ptr->free(tmp);
 			}
 
@@ -713,11 +713,12 @@ namespace wang {
 	void whttp_client::process_msg()
 	{
 		whttp_msg *p = m_msgs->dequeue();
-
 		while (p)
 		{
-			const char *buf = p->get_buf();
-			int size = p->get_size() - 1;
+			whttp_msg *tmp_msg = p;
+			p = m_msgs->dequeue();
+			const char *buf = tmp_msg->get_buf();
+			int size = tmp_msg->get_size() - 1;
 			int b_idx = 0;
 			int e_idx = 0;
 			for (int i = 0; i <= size; ++i)
@@ -734,15 +735,12 @@ namespace wang {
 			if (b_idx > 0 && e_idx > 0)
 			{
 				size = e_idx - b_idx + 1;
-				p->get_handler()(p->get_code(), buf + b_idx, size);
+				tmp_msg->get_handler()(tmp_msg->get_code(), buf + b_idx, size);
 			}
 			else
 			{
-				p->get_handler()(p->get_code(), p->get_buf(), p->get_size());
+				tmp_msg->get_handler()(tmp_msg->get_code(), tmp_msg->get_buf(), tmp_msg->get_size());
 			}
-
-			whttp_msg *tmp_msg = p;
-			p = p->get_next();
 			tmp_msg->free_me();
 		}
 	}
