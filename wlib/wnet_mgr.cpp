@@ -952,6 +952,7 @@ namespace wang
 				{
 					m_tail_ptr = m_head_ptr;
 				}
+				ptr->set_next(nullptr);
 			}
 			return ptr;
 		}
@@ -1312,7 +1313,6 @@ namespace wang
 		{
 			wnet_msg* p = msg_ptr;
 			msg_ptr = m_msgs->dequeue();
-			p->set_next(NULL);
 			if (p->get_msg_id() == EMIR_Connect)
 			{
 				SYSTEM_LOG("收到连接消息，session_id:%d", p->get_session_id());

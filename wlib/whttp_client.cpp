@@ -493,6 +493,7 @@ namespace wang {
 				{
 					m_tail_ptr = m_head_ptr;
 				}
+				ptr->set_next(nullptr);
 			}
 			return ptr;
 		}
